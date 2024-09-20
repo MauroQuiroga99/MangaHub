@@ -14,6 +14,7 @@ const HomeCover = () => {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
+        boxShadow: "rgba(13, 38, 76, 0.19) 0px 9px 20px",
         "&::before": {
           content: '""',
           width: "100%",

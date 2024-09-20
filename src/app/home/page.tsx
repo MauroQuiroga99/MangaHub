@@ -1,4 +1,5 @@
-import { Box } from "@mui/material";
+import { Box, Grid2 } from "@mui/material";
+import Card from "app/components/Card";
 import HomeCover from "app/components/HomeCover";
 import React from "react";
 
@@ -12,14 +13,30 @@ const page = () => {
         component="header"
         justifyContent="space-between"
         width={"100%"}
-        height={"80px"}
+        height={"auto"}
         sx={{
           padding: {
             md: "0 1rem",
             lg: "0 8rem",
           },
         }}
-      ></Box>
+      >
+        <Box flexGrow={1} padding={2}>
+          <Grid2
+            container
+            columnSpacing={{ xs: 1, sm: 2, md: 4 }}
+            rowSpacing={2}
+            display={"flex"}
+            alignItems={"center"}
+            justifyContent="center"
+          >
+            <Card />
+            <Card />
+            <Card />
+            <Card />
+          </Grid2>
+        </Box>
+      </Box>
     </div>
   );
 };
