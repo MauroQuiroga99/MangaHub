@@ -1,18 +1,16 @@
-import { Box, IconButton, TextField } from "@mui/material";
+import { Box, Button, IconButton, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import React from "react";
 
 const SearchBar = () => {
   return (
     <Box
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        gap: 1,
-        maxWidth: "800px",
-        justifyContent: "center",
-        width: "350px  ",
-      }}
+      display={"flex"}
+      alignItems={"center"}
+      gap={1}
+      maxWidth={"800px"}
+      justifyContent={"center"}
+      width={"350px "}
     >
       <TextField
         variant="outlined"

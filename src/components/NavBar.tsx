@@ -24,17 +24,15 @@ const NavBar = () => {
 
   return (
     <Box
-      sx={{
-        top: 0,
-        left: 0,
-        width: "auto",
-        height: "80px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "0 20px",
-        zIndex: 1100,
-      }}
+      top={0}
+      left={0}
+      width={"auto"}
+      height={"80px"}
+      display={"flex"}
+      alignItems={"center"}
+      justifyContent={"center"}
+      padding={"0 20px"}
+      zIndex={1100}
     >
       <Box
         sx={{

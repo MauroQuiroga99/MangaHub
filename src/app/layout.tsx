@@ -3,6 +3,8 @@ import { ThemeProvider } from "@mui/material/styles";
 import Footer from "app/components/Footer";
 import Header from "app/components/Header";
 import theme from "app/ui/theme";
+import "./globals.css";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -10,17 +12,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className="viewport"
-        content="width=device-width, initial-scale=1.0"
-      >
+      <body content="width=device-width, initial-scale=1.0">
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
-            <div id="root">
-              <Header />
-              {children}
-              <Footer />
-            </div>
+            <Header />
+            {children}
+            <Footer />
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
