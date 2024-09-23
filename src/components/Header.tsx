@@ -9,7 +9,6 @@ const Header = () => {
     <Box
       display={"flex"}
       alignItems={"center"}
-      component="header"
       justifyContent="space-between"
       position="fixed"
       zIndex={1}

@@ -9,6 +9,7 @@ const Footer = () => {
       width={"100%"}
       bottom={0}
       left={0}
+      top={0}
       display={"flex"}
       flexDirection={"column"}
       alignItems={"center"}

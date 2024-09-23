@@ -1,7 +1,9 @@
-import { Box, Grid2 } from "@mui/material";
-import Card from "app/components/Card";
+import { Box, Grid2, Typography } from "@mui/material";
+import CardHome from "app/components/CardHome";
 import HomeCover from "app/components/HomeCover";
 import React from "react";
+import { animeMangaDatabase } from "app/db/data";
+import Footer from "app/components/Footer";
 
 const page = () => {
   return (
@@ -10,8 +12,7 @@ const page = () => {
       <Box
         display={"flex"}
         alignItems={"center"}
-        component="header"
-        justifyContent="space-between"
+        justifyContent={"center"}
         width={"100%"}
         height={"auto"}
         sx={{
@@ -21,20 +22,36 @@ const page = () => {
           },
         }}
       >
-        <Box flexGrow={1} padding={2}>
-          <Grid2
-            container
-            columnSpacing={{ xs: 1, sm: 2, md: 4 }}
-            rowSpacing={2}
+        <Box
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          flexDirection={"column"}
+          padding={2}
+        >
+          <Typography
+            textAlign={"center"}
+            variant="h6"
+            marginY={2}
+            fontWeight={"bold"}
+          >
+            TODA LA INFORMACIÓN DEL MUNDO DEL ANIME Y MANGA
+          </Typography>
+
+          <Box
+            gap={2}
             display={"flex"}
             alignItems={"center"}
             justifyContent="center"
+            flexWrap={"wrap"}
+            width={"100%"}
           >
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-          </Grid2>
+            {animeMangaDatabase.map((animeManga) => (
+              <Box width={"300px"} key={animeManga.id}>
+                <CardHome animeManga={animeManga} />
+              </Box>
+            ))}
+          </Box>
         </Box>
       </Box>
     </div>
