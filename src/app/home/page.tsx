@@ -2,12 +2,16 @@
 import { Box, Grid2, Typography } from "@mui/material";
 import CardHome from "app/components/CardHome";
 import HomeCover from "app/components/HomeCover";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import api from "app/utils/api";
 import { AnimeManga } from "app/types";
+import { setContent } from "app/store/slices/animeMangaSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getContent } from "app/store/selector/selectors";
 
 const page = () => {
-  const [animeData, setAnimeData] = useState<AnimeManga[]>([]);
+  const dispatch = useDispatch();
+  const content = useSelector(getContent) as AnimeManga[];
 
   useEffect(() => {
     getAnimeData();
@@ -15,8 +19,7 @@ const page = () => {
 
   async function getAnimeData() {
     const response = await api.get("/anime?page[limit]=12&page[offset]=0");
-
-    setAnimeData(response.data.data);
+    dispatch(setContent(response.data.data));
   }
 
   return (
@@ -59,8 +62,8 @@ const page = () => {
             flexWrap={"wrap"}
             width={"100%"}
           >
-            {animeData.map((animeManga) => (
-              <Box width={"300px"} key={animeManga.id}>
+            {content.map((animeManga) => (
+              <Box width={"280px"} key={animeManga.id}>
                 <CardHome animeManga={animeManga} />
               </Box>
             ))}
