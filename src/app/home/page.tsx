@@ -1,11 +1,24 @@
+"use client";
 import { Box, Grid2, Typography } from "@mui/material";
 import CardHome from "app/components/CardHome";
 import HomeCover from "app/components/HomeCover";
-import React from "react";
-import { animeMangaDatabase } from "app/db/data";
-import Footer from "app/components/Footer";
+import React, { useEffect, useState } from "react";
+import api from "app/utils/api";
+import { AnimeManga } from "app/types";
 
 const page = () => {
+  const [animeData, setAnimeData] = useState<AnimeManga[]>([]);
+
+  useEffect(() => {
+    getAnimeData();
+  }, []);
+
+  async function getAnimeData() {
+    const response = await api.get("/anime?page[limit]=12&page[offset]=0");
+
+    setAnimeData(response.data.data);
+  }
+
   return (
     <div>
       <HomeCover />
@@ -46,7 +59,7 @@ const page = () => {
             flexWrap={"wrap"}
             width={"100%"}
           >
-            {animeMangaDatabase.map((animeManga) => (
+            {animeData.map((animeManga) => (
               <Box width={"300px"} key={animeManga.id}>
                 <CardHome animeManga={animeManga} />
               </Box>

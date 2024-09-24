@@ -1,6 +1,6 @@
 import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
+import { AnimeManga } from "app/types";
 import React from "react";
-import { AnimeManga, animeMangaDatabase } from "app/db/data";
 
 type CardProps = {
   animeManga: AnimeManga;
@@ -18,7 +18,7 @@ const CardHome = ({ animeManga }: CardProps) => {
       <CardMedia
         component="img"
         height="160"
-        image="/img/portada_bocchi-the-rock-26.jpg"
+        image={animeManga.attributes.posterImage.small}
         alt="Title"
         sx={{ borderRadius: "5px 5px 0 0 ", width: "100%" }}
       />
@@ -29,19 +29,20 @@ const CardHome = ({ animeManga }: CardProps) => {
           component="div"
           fontWeight={"bold"}
         >
-          {animeManga.title}
+          {animeManga.attributes.titles.en}
+          {""} {animeManga.attributes.titles.ja_jp}
         </Typography>
         <Typography fontSize={"13px"} color="text.secondary">
           <span style={{ fontWeight: "bold" }}> Rating: </span>
-          {animeManga.averageRating}
+          {animeManga.attributes.averageRating}
         </Typography>
         <Typography fontSize={"13px"} color="text.secondary">
           <span style={{ fontWeight: "bold" }}>Status: </span>
-          {animeManga.status}
+          {animeManga.attributes.status}
         </Typography>
         <Typography fontSize={"13px"} color="text.secondary">
           <span style={{ fontWeight: "bold" }}>Popularity Rank: </span>
-          {animeManga.popularityRank}
+          {animeManga.attributes.popularityRank}
         </Typography>
         <Typography
           sx={{
@@ -58,7 +59,7 @@ const CardHome = ({ animeManga }: CardProps) => {
           color="text.secondary"
         >
           <span style={{ fontWeight: "bold" }}>Synopsis: </span>
-          {animeManga.synopsis}
+          {animeManga.attributes.synopsis}
         </Typography>
       </CardContent>
     </Card>
