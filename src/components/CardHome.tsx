@@ -11,7 +11,6 @@ const CardHome = ({ animeManga }: CardProps) => {
     <Card
       sx={{
         height: "360px",
-        marginBottom: "10px",
         minWidth: "200px",
       }}
     >
@@ -48,7 +47,7 @@ const CardHome = ({ animeManga }: CardProps) => {
           sx={{
             display: "-webkit-box",
             WebkitBoxOrient: "vertical",
-            WebkitLineClamp: "unset",
+            WebkitLineClamp: 3,
             overflow: "hidden",
             textOverflow: "ellipsis",
             lineHeight: "1.5",

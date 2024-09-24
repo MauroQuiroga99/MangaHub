@@ -1,23 +1,26 @@
 "use client";
-import { Box, Grid2, Typography } from "@mui/material";
+import { Box, CircularProgress, Grid2, Typography } from "@mui/material";
 import CardHome from "app/components/CardHome";
 import HomeCover from "app/components/HomeCover";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import api from "app/utils/api";
 import { AnimeManga } from "app/types";
-import { setContent } from "app/store/slices/animeMangaSlice";
+import { setContent, setLoading } from "app/store/slices/animeMangaSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { getContent } from "app/store/selector/selectors";
+import { getContent, getLoading } from "app/store/selector/selectors";
+import Spinner from "app/components/spinner";
 
 const page = () => {
   const dispatch = useDispatch();
   const content = useSelector(getContent) as AnimeManga[];
+  const loading = useSelector(getLoading);
 
   useEffect(() => {
     getAnimeData();
   }, []);
 
   async function getAnimeData() {
+    dispatch(setLoading());
     const response = await api.get("/anime?page[limit]=12&page[offset]=0");
     dispatch(setContent(response.data.data));
   }
@@ -25,6 +28,7 @@ const page = () => {
   return (
     <div>
       <HomeCover />
+
       <Box
         display={"flex"}
         alignItems={"center"}
@@ -54,20 +58,33 @@ const page = () => {
             TODA LA INFORMACIÓN DEL MUNDO DEL ANIME Y MANGA
           </Typography>
 
-          <Box
-            gap={2}
-            display={"flex"}
-            alignItems={"center"}
-            justifyContent="center"
-            flexWrap={"wrap"}
-            width={"100%"}
-          >
-            {content.map((animeManga) => (
-              <Box width={"280px"} key={animeManga.id}>
-                <CardHome animeManga={animeManga} />
-              </Box>
-            ))}
-          </Box>
+          {loading ? (
+            <Box
+              gap={2}
+              display={"flex"}
+              alignItems={"center"}
+              justifyContent="center"
+              flexWrap={"wrap"}
+              width={"100%"}
+            >
+              <Spinner />
+            </Box>
+          ) : (
+            <Box
+              gap={2}
+              display={"flex"}
+              alignItems={"center"}
+              justifyContent="center"
+              flexWrap={"wrap"}
+              width={"100%"}
+            >
+              {content.map((animeManga) => (
+                <Box width={"280px"} key={animeManga.id}>
+                  <CardHome animeManga={animeManga} />
+                </Box>
+              ))}
+            </Box>
+          )}
         </Box>
       </Box>
     </div>

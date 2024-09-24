@@ -1,3 +1,4 @@
+"use client";
 import { createSlice } from "@reduxjs/toolkit";
 import { AnimeManga } from "../../types";
 
@@ -8,7 +9,7 @@ type ContentState = {
 
 const initialState: ContentState = {
   content: [],
-  loading: false,
+  loading: true,
 };
 
 const animeMangaSlice = createSlice({
@@ -17,10 +18,11 @@ const animeMangaSlice = createSlice({
   reducers: {
     setContent: (state, action) => {
       state.content = action.payload;
+      state.loading = false;
     },
 
-    setLoading: (state, action) => {
-      state.loading = action.payload;
+    setLoading: (state) => {
+      state.loading = true;
     },
   },
 });

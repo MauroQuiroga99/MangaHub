@@ -4,6 +4,6 @@ export const getContent = (state: RootState) => {
   return state.anime.content;
 };
 
-export const getSelectedPair = (state: RootState) => {
+export const getLoading = (state: RootState) => {
   return state.anime.loading;
 };
