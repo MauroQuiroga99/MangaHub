@@ -18,11 +18,10 @@ const animeMangaSlice = createSlice({
   reducers: {
     setContent: (state, action) => {
       state.content = action.payload;
-      state.loading = false;
     },
 
-    setLoading: (state) => {
-      state.loading = true;
+    setLoading: (state, action) => {
+      state.loading = action.payload;
     },
   },
 });

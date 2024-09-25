@@ -20,13 +20,14 @@ const page = () => {
   }, []);
 
   async function getAnimeData() {
-    dispatch(setLoading());
+    dispatch(setLoading(true));
     const response = await api.get("/anime?page[limit]=12&page[offset]=0");
     dispatch(setContent(response.data.data));
+    dispatch(setLoading(false));
   }
 
   return (
-    <div>
+    <>
       <HomeCover />
 
       <Box
@@ -87,7 +88,7 @@ const page = () => {
           )}
         </Box>
       </Box>
-    </div>
+    </>
   );
 };
 
