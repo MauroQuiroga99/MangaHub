@@ -11,7 +11,7 @@ const Header = () => {
       alignItems={"center"}
       justifyContent="space-between"
       position="fixed"
-      zIndex={1}
+      zIndex={3}
       top={0}
       left={0}
       width={"100%"}

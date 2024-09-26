@@ -10,38 +10,52 @@ const CardHome = ({ animeManga }: CardProps) => {
   return (
     <Card
       sx={{
-        height: "360px",
+        zIndex: 2,
+        height: "300px",
         minWidth: "200px",
+        position: "relative",
+        transition: "background-color 0.3s ease, box-shadow 0.3s ease",
+        backgroundColor: "rgba(0, 0, 0, 0.8)",
+        ":hover": {
+          backgroundColor: "rgba(255, 255, 255, 0.9)",
+          boxShadow: "rgba(0, 0, 0, 0.4) 5px 5px 20px",
+          cursor: "pointer",
+        },
       }}
     >
       <CardMedia
         component="img"
-        height="160"
+        height="300px"
         image={animeManga.attributes.posterImage.small}
         alt="Title"
-        sx={{ borderRadius: "5px 5px 0 0 ", width: "100%" }}
+        sx={{
+          borderRadius: "5px 5px 0 0 ",
+          width: "100%",
+          height: "100%",
+          position: "absolute",
+        }}
       />
-      <CardContent>
-        <Typography
-          display={"flex"}
-          variant="h6"
-          component="div"
-          fontWeight={"bold"}
-        >
+      <Box
+        sx={{
+          zIndex: 1,
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundColor: "rgba(0, 0, 0, 0.4)",
+          opacity: 1,
+          transition: "opacity 0.3s ease, background-color 0.3s ease",
+          ":hover": {
+            opacity: 0,
+            backgroundColor: "rgba(255, 255, 255, 0.6)",
+          },
+        }}
+      />
+      <CardContent sx={{ color: "white", bottom: "0", position: "absolute" }}>
+        <Typography display={"flex"} variant="h6" fontWeight={"bold"}>
           {animeManga.attributes.titles.en}
           {""} {animeManga.attributes.titles.ja_jp}
-        </Typography>
-        <Typography fontSize={"13px"} color="text.secondary">
-          <span style={{ fontWeight: "bold" }}> Rating: </span>
-          {animeManga.attributes.averageRating}
-        </Typography>
-        <Typography fontSize={"13px"} color="text.secondary">
-          <span style={{ fontWeight: "bold" }}>Status: </span>
-          {animeManga.attributes.status}
-        </Typography>
-        <Typography fontSize={"13px"} color="text.secondary">
-          <span style={{ fontWeight: "bold" }}>Popularity Rank: </span>
-          {animeManga.attributes.popularityRank}
         </Typography>
         <Typography
           sx={{
@@ -55,9 +69,9 @@ const CardHome = ({ animeManga }: CardProps) => {
           }}
           textAlign={"justify"}
           fontSize={"13px"}
-          color="text.secondary"
+          color="white"
         >
-          <span style={{ fontWeight: "bold" }}>Synopsis: </span>
+          <span style={{ fontWeight: "bold" }}></span>
           {animeManga.attributes.synopsis}
         </Typography>
       </CardContent>
