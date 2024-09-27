@@ -1,14 +1,14 @@
 "use client";
-import { Box, CircularProgress, Grid2, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import CardHome from "app/components/CardHome";
 import HomeCover from "app/components/HomeCover";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import api from "app/utils/api";
 import { AnimeManga } from "app/types";
 import { setContent, setLoading } from "app/store/slices/animeMangaSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { getContent, getLoading } from "app/store/selector/selectors";
-import Spinner from "app/components/spinner";
+import Spinner from "app/components/Spinner";
 
 const page = () => {
   const dispatch = useDispatch();

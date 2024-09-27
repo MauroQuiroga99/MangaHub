@@ -130,11 +130,11 @@ const NavBar = () => {
       >
         <Box
           sx={{
-            display: { xs: "flex", sm: "none" }, // Muestra el SearchBar en pantallas xs
+            display: { xs: "flex", sm: "none" }, //
             width: "100%",
           }}
         >
-          <MenuItem onClick={handleMenuClose}>
+          <MenuItem>
             <SearchBar />
           </MenuItem>
         </Box>
