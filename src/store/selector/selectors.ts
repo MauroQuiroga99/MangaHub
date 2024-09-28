@@ -11,3 +11,11 @@ export const getLoading = (state: RootState) => {
 export const getFilterTerm = (state: RootState) => {
   return state.anime.filterTerm;
 };
+
+export const getCurrentPage = (state: RootState) => {
+  return state.anime.currentPage;
+};
+
+export const getTotalPages = (state: RootState) => {
+  return state.anime.totalPages;
+};

@@ -6,31 +6,49 @@ import api from "app/utils/api";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getContent,
-  getFilterTerm,
+  getCurrentPage,
   getLoading,
 } from "app/store/selector/selectors";
 import { AnimeManga } from "app/types";
-import { setContent, setLoading } from "app/store/slices/animeMangaSlice";
+import {
+  setContent,
+  setLoading,
+  setTotalPages,
+  setCurrentPage,
+} from "app/store/slices/animeMangaSlice";
 import CardHome from "app/components/CardHome";
 import Spinner from "app/components/Spinner";
+import PaginationContent from "app/components/PaginationContent";
 
 const PageResults = () => {
   const dispatch = useDispatch();
   const content = useSelector(getContent) as AnimeManga[];
   const loading = useSelector(getLoading);
+  const currentPage = useSelector(getCurrentPage);
   const searchParams = useSearchParams();
   const search = searchParams.get("q");
 
+  const LIMIT = 12;
+  const offset = (currentPage - 1) * LIMIT;
+
   useEffect(() => {
-    getFilteredAnimeData();
-  }, [search]);
+    if (search) {
+      getFilteredAnimeData();
+    }
+  }, [search, currentPage]);
 
   async function getFilteredAnimeData() {
     dispatch(setLoading(true));
+
     const response = await api.get(
-      `/anime?page[limit]=12&page[offset]=0&filter[text]=${search}`
+      `/anime?page[limit]=${LIMIT}&page[offset]=${offset}&filter[text]=${search}`
     );
+
+    const totalResults = response.data.meta.count;
+    const totalPages = Math.ceil(totalResults / LIMIT);
+
     dispatch(setContent(response.data.data));
+    dispatch(setTotalPages(totalPages));
     dispatch(setLoading(false));
   }
 
@@ -91,6 +109,9 @@ const PageResults = () => {
                 <CardHome animeManga={animeManga} />
               </Box>
             ))}
+            <Box marginY={2}>
+              <PaginationContent />
+            </Box>
           </Box>
         )}
       </Box>

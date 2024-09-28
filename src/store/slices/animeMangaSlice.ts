@@ -6,12 +6,16 @@ type ContentState = {
   content: AnimeManga[];
   loading: boolean;
   filterTerm: string;
+  currentPage: number;
+  totalPages: number;
 };
 
 const initialState: ContentState = {
   content: [],
   loading: false,
   filterTerm: "",
+  currentPage: 1,
+  totalPages: 1,
 };
 
 const animeMangaSlice = createSlice({
@@ -27,9 +31,20 @@ const animeMangaSlice = createSlice({
     setFilterTerm: (state, action) => {
       state.filterTerm = action.payload;
     },
+    setCurrentPage: (state, action) => {
+      state.currentPage = action.payload;
+    },
+    setTotalPages: (state, action) => {
+      state.totalPages = action.payload;
+    },
   },
 });
 
-export const { setContent, setLoading, setFilterTerm } =
-  animeMangaSlice.actions;
+export const {
+  setContent,
+  setLoading,
+  setFilterTerm,
+  setCurrentPage,
+  setTotalPages,
+} = animeMangaSlice.actions;
 export default animeMangaSlice.reducer;
