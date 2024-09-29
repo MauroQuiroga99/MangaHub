@@ -32,10 +32,8 @@ const PageResults = () => {
   const offset = (currentPage - 1) * LIMIT;
 
   useEffect(() => {
-    if (search) {
-      getFilteredAnimeData();
-    }
-  }, [search, currentPage]);
+    getFilteredAnimeData();
+  }, [currentPage, search]);
 
   async function getFilteredAnimeData() {
     dispatch(setLoading(true));

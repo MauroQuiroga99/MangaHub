@@ -4,7 +4,10 @@ import SearchIcon from "@mui/icons-material/Search";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFilterTerm } from "app/store/selector/selectors";
-import { setFilterTerm } from "app/store/slices/animeMangaSlice";
+import {
+  setCurrentPage,
+  setFilterTerm,
+} from "app/store/slices/animeMangaSlice";
 import Link from "next/link";
 
 const SearchBar = () => {
@@ -13,6 +16,10 @@ const SearchBar = () => {
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setFilterTerm(e.target.value));
+  };
+
+  const handleSearchClick = () => {
+    dispatch(setCurrentPage(1));
   };
 
   return (
@@ -45,6 +52,7 @@ const SearchBar = () => {
           <IconButton
             disabled={!filterTerm}
             color="primary"
+            onClick={handleSearchClick}
             sx={{
               borderRadius: "4px",
               padding: "10px",
