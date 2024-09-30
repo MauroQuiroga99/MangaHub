@@ -29,7 +29,7 @@ const PageResults = () => {
   const search = searchParams.get("q");
 
   const LIMIT = 12;
-  const offset = (currentPage - 1) * LIMIT;
+  const offset = currentPage * LIMIT;
 
   useEffect(() => {
     getFilteredAnimeData();
@@ -45,9 +45,13 @@ const PageResults = () => {
     const totalResults = response.data.meta.count;
     const totalPages = Math.ceil(totalResults / LIMIT);
 
+    console.log(response.data);
+
     dispatch(setContent(response.data.data));
     dispatch(setTotalPages(totalPages));
     dispatch(setLoading(false));
+    console.log("CurrentPage:", currentPage);
+    console.log("Offset:", offset);
   }
 
   return (
@@ -58,6 +62,7 @@ const PageResults = () => {
       width={"100%"}
       height={"auto"}
       marginTop={"80px"}
+      minHeight={"100vh"}
       sx={{
         padding: {
           md: "0 1rem",
@@ -73,15 +78,25 @@ const PageResults = () => {
         padding={2}
         flexGrow={1}
       >
-        <Typography
-          textAlign={"center"}
-          variant="h6"
-          marginY={2}
-          fontWeight={"bold"}
-        >
-          RESULTADOS DE "{search}"
-        </Typography>
-
+        {content.length > 0 ? (
+          <Typography
+            textAlign={"center"}
+            variant="h6"
+            marginY={2}
+            fontWeight={"bold"}
+          >
+            Resultados de "{search}"
+          </Typography>
+        ) : (
+          <Typography
+            textAlign={"center"}
+            variant="h6"
+            marginY={2}
+            fontWeight={"bold"}
+          >
+            No hay resultados de la busqueda "{search}"
+          </Typography>
+        )}
         {loading ? (
           <Box
             gap={2}
@@ -99,6 +114,7 @@ const PageResults = () => {
             display={"flex"}
             alignItems={"center"}
             justifyContent="center"
+            alignContent={"column"}
             flexWrap={"wrap"}
             width={"100%"}
           >
@@ -107,11 +123,11 @@ const PageResults = () => {
                 <CardHome animeManga={animeManga} />
               </Box>
             ))}
-            <Box marginY={2}>
-              <PaginationContent />
-            </Box>
           </Box>
         )}
+        <Box marginY={2}>
+          <PaginationContent />
+        </Box>
       </Box>
     </Box>
   );

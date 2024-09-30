@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getContent, getLoading } from "app/store/selector/selectors";
 import Spinner from "app/components/Spinner";
 
-const page = () => {
+const HomePage = () => {
   const dispatch = useDispatch();
   const content = useSelector(getContent) as AnimeManga[];
   const loading = useSelector(getLoading);
@@ -92,4 +92,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default HomePage;
