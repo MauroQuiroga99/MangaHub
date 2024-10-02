@@ -25,11 +25,9 @@ const HomePage = () => {
     dispatch(setContent(response.data.data));
     dispatch(setLoading(false));
   }
-
   return (
     <>
       <HomeCover />
-
       <Box
         display={"flex"}
         alignItems={"center"}

@@ -22,5 +22,9 @@ export type AnimeManga = {
     averageRating: string;
     popularityRank: number;
     synopsis: string;
+    episodeCount: number;
+    youtubeVideoId: string;
+    startDate: string;
+    endDate: string;
   };
 };

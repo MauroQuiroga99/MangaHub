@@ -19,3 +19,7 @@ export const getCurrentPage = (state: RootState) => {
 export const getTotalPages = (state: RootState) => {
   return state.anime.totalPages;
 };
+
+export const getSelectedAnime = (state: RootState) => {
+  return state.anime.selectedAnime;
+};
