@@ -27,4 +27,12 @@ export type AnimeManga = {
     startDate: string;
     endDate: string;
   };
+  relationships: {
+    categories: {
+      links: {
+        related: string;
+        self: string;
+      };
+    };
+  };
 };
