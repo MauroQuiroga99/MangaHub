@@ -1,5 +1,12 @@
 "use client";
-import { Box, Card, CardContent, CardMedia, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  Skeleton,
+  Typography,
+} from "@mui/material";
 import { AnimeManga } from "app/types";
 import Link from "next/link";
 import React from "react";
@@ -9,6 +16,17 @@ type CardProps = {
 };
 
 const CardHome = ({ animeManga }: CardProps) => {
+  if (!animeManga) {
+    return (
+      <Skeleton
+        animation="wave"
+        variant="rectangular"
+        width={280}
+        height={400}
+        sx={{ borderRadius: "5px", backgroundColor: "#e6e6e6" }}
+      />
+    );
+  }
   return (
     <Link href={`/post/${animeManga.id}`}>
       <Card

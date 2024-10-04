@@ -1,5 +1,5 @@
 "use client";
-import { Box, Rating, Typography } from "@mui/material";
+import { Box, Rating, Skeleton, Typography } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import { useParams } from "next/navigation";
@@ -17,7 +17,6 @@ const PostPage = () => {
   const dispatch = useDispatch();
   const selectedAnime = useSelector(getSelectedAnime);
   const content = useSelector(getContent) as AnimeManga[];
-
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -74,17 +73,24 @@ const PostPage = () => {
             color: "white",
           }}
         >
-          <Box margin={2}>
-            <Stack spacing={2} direction="row">
-              <Button variant="contained" style={{ fontWeight: "bold" }}>
-                Anime
-              </Button>
-            </Stack>
-            <Typography variant="h4" marginY={2} fontWeight={"bold"}>
-              {selectedAnime?.attributes.titles.en}
-              {selectedAnime?.attributes.titles.ja_jp}
-            </Typography>
-          </Box>
+          {selectedAnime ? (
+            <Box margin={2}>
+              <Typography variant="h4" marginY={2} fontWeight={"bold"}>
+                {selectedAnime?.attributes.titles.en}
+                {selectedAnime?.attributes.titles.ja_jp}
+              </Typography>
+            </Box>
+          ) : (
+            <Skeleton
+              animation="wave"
+              variant="rectangular"
+              width="100%"
+              height="300px"
+              sx={{
+                backgroundColor: "#e6e6e6",
+              }}
+            />
+          )}
         </Box>
       </Box>
       <Box
@@ -121,150 +127,189 @@ const PostPage = () => {
             height: "auto",
           }}
         >
-          <Typography
-            variant="body1"
-            sx={{
-              fontSize: "1rem",
-              lineHeight: "1.6",
-              marginTop: "0 auto",
-              height: "auto",
-            }}
-          >
-            <span style={{ fontWeight: "bold" }}></span>
-            <br />
+          {selectedAnime ? (
+            <Typography
+              variant="body1"
+              sx={{
+                fontSize: "1rem",
+                lineHeight: "1.6",
+                marginTop: "0 auto",
+                height: "auto",
+                width: "auto",
+              }}
+            >
+              <span style={{ fontWeight: "bold" }}></span>
+              <br />
 
-            {selectedAnime?.attributes.synopsis}
-          </Typography>
+              {selectedAnime?.attributes.synopsis}
+            </Typography>
+          ) : (
+            <Skeleton
+              animation="wave"
+              variant="rounded"
+              width={"auto"}
+              height={"150px"}
+              sx={{
+                backgroundColor: "#e6e6e6",
+              }}
+            />
+          )}
 
           <Box
             display={"flex"}
             flexWrap={"wrap"}
+            marginTop={"16px"}
             gap={2}
             sx={{
-              justifyContent: { xs: "center", sm: "flex-start" },
+              justifyContent: { xs: "center", sm: "space-between" },
+              alignItems: "center",
             }}
           >
-            <Box>
-              <Typography
-                variant="body1"
-                sx={{
-                  fontSize: "1rem",
-                  lineHeight: "1.6",
-                  marginTop: "10px",
-                  height: "auto",
-                }}
-              >
-                <span style={{ fontWeight: "bold" }}>RATING</span>
-                <br />
-              </Typography>
-
-              <Stack spacing={1}>
-                <Rating
-                  name="half-rating-read"
-                  value={ratingValue}
-                  precision={0.5}
-                  readOnly
-                />
-              </Stack>
-              <Typography
-                variant="body1"
-                sx={{
-                  fontSize: "1rem",
-                  lineHeight: "1.6",
-                  marginTop: "10px",
-                  height: "auto",
-                }}
-              >
-                <span style={{ fontWeight: "bold" }}>POPULARIDAD</span>
-                <br />#{selectedAnime?.attributes.popularityRank}
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{
-                  fontSize: "1rem",
-                  lineHeight: "1.6",
-                  marginTop: "10px",
-                  height: "auto",
-                }}
-              >
-                <span style={{ fontWeight: "bold" }}>EPISODIOS</span>
-                <br />
-                {selectedAnime?.attributes.episodeCount}
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{
-                  fontSize: "1rem",
-                  lineHeight: "1.6",
-                  marginTop: "10px",
-                  height: "auto",
-                }}
-              >
-                <span style={{ fontWeight: "bold" }}>ESTADO</span>
-                <br />
-                {selectedAnime?.attributes.status}
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{
-                  fontSize: "1rem",
-                  lineHeight: "1.6",
-                  marginTop: "10px",
-                  height: "auto",
-                }}
-              >
-                <span style={{ fontWeight: "bold" }}>FECHA DE EMISIÓN</span>
-                <br />
-                {selectedAnime?.attributes.startDate}
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{
-                  fontSize: "1rem",
-                  lineHeight: "1.6",
-                  marginTop: "10px",
-                  height: "auto",
-                }}
-              >
-                <span style={{ fontWeight: "bold" }}>
-                  FECHA DE FINALIZACIÓN
-                </span>
-                <br />
-                {selectedAnime?.attributes.endDate}
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                marginTop: 2,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                width: "60%",
-              }}
-            >
-              {isClient && (
-                <ReactPlayer
-                  controls
-                  url={`https://www.youtube.com/watch?v=${selectedAnime?.attributes.youtubeVideoId}`}
-                  width="400px"
-                  height="260px"
-                />
-              )}
-              <Button
-                variant="contained"
-                color="primary"
-                href={`https://www.youtube.com/watch?v=${selectedAnime?.attributes.youtubeVideoId}`}
-                target="_blank"
-                sx={{ marginTop: 2 }}
-              >
+            {selectedAnime ? (
+              <Box>
                 <Typography
                   variant="body1"
-                  sx={{ fontSize: "1rem", lineHeight: "1.6" }}
+                  sx={{
+                    fontSize: "1rem",
+                    lineHeight: "1.6",
+                    marginTop: "10px",
+                    height: "auto",
+                  }}
                 >
-                  <span style={{ fontWeight: "bold" }}>Ver Trailer</span>
+                  <span style={{ fontWeight: "bold" }}>RATING</span>
+                  <br />
                 </Typography>
-              </Button>
-            </Box>
+
+                <Stack spacing={1}>
+                  <Rating
+                    name="half-rating-read"
+                    value={ratingValue}
+                    precision={0.5}
+                    readOnly
+                  />
+                </Stack>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    fontSize: "1rem",
+                    lineHeight: "1.6",
+                    marginTop: "10px",
+                    height: "auto",
+                  }}
+                >
+                  <span style={{ fontWeight: "bold" }}>POPULARIDAD</span>
+                  <br />#{selectedAnime?.attributes.popularityRank}
+                </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    fontSize: "1rem",
+                    lineHeight: "1.6",
+                    marginTop: "10px",
+                    height: "auto",
+                  }}
+                >
+                  <span style={{ fontWeight: "bold" }}>EPISODIOS</span>
+                  <br />
+                  {selectedAnime?.attributes.episodeCount}
+                </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    fontSize: "1rem",
+                    lineHeight: "1.6",
+                    marginTop: "10px",
+                    height: "auto",
+                  }}
+                >
+                  <span style={{ fontWeight: "bold" }}>ESTADO</span>
+                  <br />
+                  {selectedAnime?.attributes.status}
+                </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    fontSize: "1rem",
+                    lineHeight: "1.6",
+                    marginTop: "10px",
+                    height: "auto",
+                  }}
+                >
+                  <span style={{ fontWeight: "bold" }}>FECHA DE EMISIÓN</span>
+                  <br />
+                  {selectedAnime?.attributes.startDate}
+                </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    fontSize: "1rem",
+                    lineHeight: "1.6",
+                    marginTop: "10px",
+                    height: "auto",
+                  }}
+                >
+                  <span style={{ fontWeight: "bold" }}>
+                    FECHA DE FINALIZACIÓN
+                  </span>
+                  <br />
+                  {selectedAnime?.attributes.endDate}
+                </Typography>
+              </Box>
+            ) : (
+              <Skeleton
+                animation="wave"
+                variant="rounded"
+                width="260px"
+                height="300px"
+                sx={{
+                  backgroundColor: "#e6e6e6",
+                }}
+              />
+            )}
+            {selectedAnime ? (
+              <Box
+                sx={{
+                  marginTop: 2,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  width: "60%",
+                }}
+              >
+                {isClient && (
+                  <ReactPlayer
+                    controls
+                    url={`https://www.youtube.com/watch?v=${selectedAnime?.attributes.youtubeVideoId}`}
+                    width="400px"
+                    height="260px"
+                  />
+                )}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  href={`https://www.youtube.com/watch?v=${selectedAnime?.attributes.youtubeVideoId}`}
+                  target="_blank"
+                  sx={{ marginTop: 2 }}
+                >
+                  <Typography
+                    variant="body1"
+                    sx={{ fontSize: "1rem", lineHeight: "1.6" }}
+                  >
+                    <span style={{ fontWeight: "bold" }}>Ver Trailer</span>
+                  </Typography>
+                </Button>
+              </Box>
+            ) : (
+              <Skeleton
+                animation="wave"
+                variant="rounded"
+                width="400px"
+                height="300px"
+                sx={{
+                  backgroundColor: "#e6e6e6",
+                }}
+              />
+            )}
           </Box>
         </Box>
         <Box
@@ -279,14 +324,26 @@ const PostPage = () => {
             height: "auto",
           }}
         >
-          <Typography
-            textAlign={"center"}
-            variant="h6"
-            marginY={2}
-            fontWeight={"bold"}
-          >
-            ANIMES RELACIONADOS
-          </Typography>
+          <Box display="flex" justifyContent="center" alignItems="center">
+            <Typography
+              textAlign={"center"}
+              variant="h6"
+              marginY={2}
+              fontWeight={"bold"}
+            >
+              {content.length === 0 ? (
+                <Skeleton
+                  sx={{
+                    backgroundColor: "#e6e6e6",
+                  }}
+                  variant="text"
+                  width="250px"
+                />
+              ) : (
+                "ANIMES RELACIONADOS"
+              )}
+            </Typography>
+          </Box>
           <Box
             gap={2}
             display={"flex"}
@@ -300,11 +357,23 @@ const PostPage = () => {
               overflowY: "auto",
             }}
           >
-            {content.map((animeManga) => (
-              <Box width={"280px"} key={animeManga.id}>
-                <CardHome animeManga={animeManga} />
-              </Box>
-            ))}
+            {content.length ? (
+              content.map((animeManga) => (
+                <Box width={"280px"} key={animeManga.id}>
+                  <CardHome animeManga={animeManga} />
+                </Box>
+              ))
+            ) : (
+              <Skeleton
+                animation="wave"
+                variant="rounded"
+                width={280}
+                height={400}
+                sx={{
+                  backgroundColor: "#e6e6e6",
+                }}
+              />
+            )}
           </Box>
         </Box>
       </Box>

@@ -3,7 +3,6 @@ import React from "react";
 import SearchBar from "./SearchBar";
 import NavBar from "./NavBar";
 import Logo from "./Logo";
-import Link from "next/link";
 
 const Header = () => {
   return (
@@ -33,12 +32,7 @@ const Header = () => {
         paddingLeft={"20px"}
         paddingRight={"10px"}
       >
-        <Link
-          href={"/home"}
-          style={{ textDecoration: "none", color: "inherit" }}
-        >
-          <Logo />
-        </Link>
+        <Logo />
       </Box>
       <Box
         sx={{
