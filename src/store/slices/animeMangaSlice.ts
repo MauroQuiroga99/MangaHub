@@ -13,7 +13,7 @@ type ContentState = {
 
 const initialState: ContentState = {
   content: [],
-  loading: false,
+  loading: true,
   filterTerm: "",
   currentPage: 1,
   totalPages: 1,

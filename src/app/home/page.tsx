@@ -26,6 +26,7 @@ const HomePage = () => {
   return (
     <>
       <HomeCover />
+
       <Box
         display={"flex"}
         alignItems={"center"}
@@ -60,6 +61,7 @@ const HomePage = () => {
                 }}
                 variant="text"
                 height="35px"
+                animation="wave"
               />
             ) : (
               "TODA LA INFORMACIÓN DEL MUNDO DEL ANIME Y MANGA"
@@ -80,7 +82,7 @@ const HomePage = () => {
                     <CardHome animeManga={animeManga} />
                   </Box>
                 ))
-              : Array.from({ length: 8 }).map((_, index) => (
+              : Array.from({ length: 12 }).map((_, index) => (
                   <Skeleton
                     key={index}
                     animation="wave"

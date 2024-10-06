@@ -4,12 +4,17 @@ import { Box, Skeleton, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import api from "app/utils/api";
 import { useDispatch, useSelector } from "react-redux";
-import { getContent, getCurrentPage } from "app/store/selector/selectors";
+import {
+  getContent,
+  getCurrentPage,
+  getLoading,
+} from "app/store/selector/selectors";
 import { AnimeManga } from "app/types";
 import {
   setContent,
   setTotalPages,
   setCurrentPage,
+  setLoading,
 } from "app/store/slices/animeMangaSlice";
 import CardHome from "app/components/CardHome";
 import PaginationContent from "app/components/PaginationContent";
@@ -18,6 +23,7 @@ const PageResults = () => {
   const dispatch = useDispatch();
   const content = useSelector(getContent) as AnimeManga[];
   const currentPage = useSelector(getCurrentPage);
+  const loading = useSelector(getLoading);
   const searchParams = useSearchParams();
   const search = searchParams.get("q");
 
@@ -29,6 +35,7 @@ const PageResults = () => {
   }, [currentPage, search]);
 
   async function getFilteredAnimeData() {
+    dispatch(setLoading(true));
     const response = await api.get(
       `/anime?page[limit]=${LIMIT}&page[offset]=${offset}&filter[text]=${search}`
     );
@@ -36,12 +43,10 @@ const PageResults = () => {
     const totalResults = response.data.meta.count;
     const totalPages = Math.ceil(totalResults / LIMIT);
 
-    console.log(response.data);
-
     dispatch(setContent(response.data.data));
     dispatch(setTotalPages(totalPages));
-    console.log("CurrentPage:", currentPage);
-    console.log("Offset:", offset);
+
+    dispatch(setLoading(false));
   }
 
   return (
@@ -68,37 +73,27 @@ const PageResults = () => {
         padding={2}
         flexGrow={1}
       >
-        {content.length > 0 ? (
-          <Typography
-            textAlign={"center"}
-            variant="h6"
-            marginY={2}
-            fontWeight={"bold"}
-          >
-            Resultados de "{search}"
-          </Typography>
-        ) : (
-          <Typography
-            textAlign={"center"}
-            variant="h6"
-            marginY={2}
-            fontWeight={"bold"}
-          >
-            {" "}
-            {content.length === 0 ? (
-              <Skeleton
-                sx={{
-                  width: { xs: "300px", sm: "320px" },
-                  backgroundColor: "#e6e6e6",
-                }}
-                variant="text"
-                height="35px"
-              />
-            ) : (
-              `No hay resultados de la busqueda "{search}"`
-            )}
-          </Typography>
-        )}
+        <Typography
+          textAlign={"center"}
+          variant="h6"
+          marginY={2}
+          fontWeight={"bold"}
+        >
+          {loading ? (
+            <Skeleton
+              sx={{
+                width: { xs: "300px", sm: "320px" },
+                backgroundColor: "#e6e6e6",
+              }}
+              variant="text"
+              height="35px"
+            />
+          ) : content.length > 0 ? (
+            `Resultados de "${search}"`
+          ) : (
+            `No hay resultados de la búsqueda "${search}"`
+          )}
+        </Typography>
         <Box
           gap={2}
           display={"flex"}
@@ -108,13 +103,8 @@ const PageResults = () => {
           flexWrap={"wrap"}
           width={"100%"}
         >
-          {content.length
-            ? content.map((animeManga) => (
-                <Box width={"280px"} key={animeManga.id}>
-                  <CardHome animeManga={animeManga} />
-                </Box>
-              ))
-            : Array.from({ length: 8 }).map((_, index) => (
+          {loading
+            ? Array.from({ length: 12 }).map((_, index) => (
                 <Skeleton
                   key={index}
                   animation="wave"
@@ -126,11 +116,30 @@ const PageResults = () => {
                     borderRadius: "8px",
                   }}
                 />
-              ))}
+              ))
+            : content.length > 0
+            ? content.map((animeManga) => (
+                <Box width={"280px"} key={animeManga.id}>
+                  <CardHome animeManga={animeManga} />
+                </Box>
+              ))
+            : null}
         </Box>
 
         <Box marginY={2}>
-          <PaginationContent />
+          {loading ? (
+            <Skeleton
+              sx={{
+                width: { xs: "300px", sm: "340px" },
+                backgroundColor: "#e6e6e6",
+              }}
+              variant="text"
+              height="50px"
+              animation="wave"
+            />
+          ) : (
+            <PaginationContent />
+          )}
         </Box>
       </Box>
     </Box>
