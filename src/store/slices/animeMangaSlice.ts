@@ -9,6 +9,7 @@ type ContentState = {
   currentPage: number;
   totalPages: number;
   selectedAnime: AnimeManga | null;
+  searchAnime: AnimeManga[];
 };
 
 const initialState: ContentState = {
@@ -18,6 +19,7 @@ const initialState: ContentState = {
   currentPage: 1,
   totalPages: 1,
   selectedAnime: null,
+  searchAnime: [],
 };
 
 const animeMangaSlice = createSlice({
@@ -42,6 +44,9 @@ const animeMangaSlice = createSlice({
     setSelectedAnime: (state, action) => {
       state.selectedAnime = action.payload;
     },
+    setSearchAnime: (state, action) => {
+      state.searchAnime = action.payload;
+    },
   },
 });
 
@@ -52,5 +57,6 @@ export const {
   setCurrentPage,
   setTotalPages,
   setSelectedAnime,
+  setSearchAnime,
 } = animeMangaSlice.actions;
 export default animeMangaSlice.reducer;

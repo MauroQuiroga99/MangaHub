@@ -23,3 +23,7 @@ export const getTotalPages = (state: RootState) => {
 export const getSelectedAnime = (state: RootState) => {
   return state.anime.selectedAnime;
 };
+
+export const getSearchAnime = (state: RootState) => {
+  return state.anime.searchAnime;
+};

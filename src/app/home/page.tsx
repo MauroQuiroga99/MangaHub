@@ -26,7 +26,6 @@ const HomePage = () => {
   return (
     <>
       <HomeCover />
-
       <Box
         display={"flex"}
         alignItems={"center"}
