@@ -48,14 +48,13 @@ const SearchBar = () => {
           width: {
             lg: "450px",
             md: "370px",
-            sm: "300px",
+            sm: "360px",
           },
         }}
       >
         <Box
           display={"flex"}
           alignItems={"center"}
-          gap={1}
           maxWidth={"800px"}
           justifyContent={"center"}
         >
@@ -93,14 +92,18 @@ const SearchBar = () => {
         <Box
           sx={{
             width: {
-              lg: "398px",
-              md: "318px",
-              sm: "300px",
+              lg: "450px",
+              md: "370px",
+              sm: "360px",
+              xs: "258.4px",
             },
             maxHeight: "521px",
             overflowY: "auto",
             backgroundColor: "#e6e6e6",
             borderRadius: "6px ",
+            "&::-webkit-scrollbar": {
+              display: "none",
+            },
           }}
           display="flex"
           flexDirection="column"

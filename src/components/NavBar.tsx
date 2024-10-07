@@ -26,18 +26,18 @@ const NavBar = () => {
     <Box
       top={0}
       left={0}
-      width={"auto"}
       height={"80px"}
       display={"flex"}
       alignItems={"center"}
-      justifyContent={"center"}
-      padding={"0 20px"}
+      justifyContent={"end"}
+      paddingRight={"20px"}
       zIndex={1100}
     >
       <Box
         sx={{
           display: { xs: "none", md: "flex" },
           alignItems: "center",
+          width: "auto",
         }}
       >
         <Box

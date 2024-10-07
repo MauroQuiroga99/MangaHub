@@ -4,6 +4,8 @@ export type AnimeManga = {
   attributes: {
     titles: {
       en: string;
+      en_jp: string;
+      en_us: string;
       ja_jp: string;
     };
     status: string;

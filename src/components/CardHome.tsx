@@ -84,8 +84,9 @@ const CardHome = ({ animeManga }: CardProps) => {
             variant="h6"
             fontWeight={"bold"}
           >
-            {animeManga.attributes.titles.en}
-            {animeManga.attributes.titles.ja_jp}
+            {animeManga.attributes.titles.en
+              ? animeManga.attributes.titles.en
+              : animeManga.attributes.titles.en_jp}
           </Typography>
           <Typography
             sx={{
