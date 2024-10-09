@@ -1,7 +1,7 @@
 "use client";
 import { Box, IconButton, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFilterTerm, getSearchAnime } from "app/store/selector/selectors";
 import {
@@ -15,9 +15,11 @@ import api from "app/utils/api";
 import { AnimeManga } from "app/types";
 
 const SearchBar = () => {
+  const [isSuggestion, setSuggestion] = useState(false);
   const dispatch = useDispatch();
   const filterTerm = useSelector(getFilterTerm);
   const searchAnime = useSelector(getSearchAnime) as AnimeManga[];
+  const searchRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     getFilteredAnimeData();
@@ -25,6 +27,7 @@ const SearchBar = () => {
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setFilterTerm(e.target.value));
+    setSuggestion(true);
   };
 
   const handleSearchClick = () => {
@@ -40,9 +43,26 @@ const SearchBar = () => {
     console.log(response);
   }
 
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      searchRef.current &&
+      !searchRef.current.contains(event.target as Node)
+    ) {
+      dispatch(setFilterTerm(""));
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
       <Box
+        ref={searchRef}
         position={"relative"}
         sx={{
           width: {
@@ -111,7 +131,11 @@ const SearchBar = () => {
         >
           {filterTerm &&
             searchAnime.map((animeManga) => (
-              <SearchSuggestions key={animeManga.id} animeManga={animeManga} />
+              <SearchSuggestions
+                onClick={() => dispatch(setFilterTerm(""))}
+                key={animeManga.id}
+                animeManga={animeManga}
+              />
             ))}
         </Box>
       </Box>

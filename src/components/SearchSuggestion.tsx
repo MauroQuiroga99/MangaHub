@@ -5,12 +5,13 @@ import React from "react";
 
 type SearchSuggestionsProps = {
   animeManga: AnimeManga;
+  onClick: () => void;
 };
 
-const SearchSuggestions = ({ animeManga }: SearchSuggestionsProps) => {
+const SearchSuggestions = ({ animeManga, onClick }: SearchSuggestionsProps) => {
   const ratingValue = Number(animeManga?.attributes.averageRating) / 20;
   return (
-    <div>
+    <>
       <Link
         href={`/post/${animeManga.id}`}
         style={{
@@ -20,6 +21,7 @@ const SearchSuggestions = ({ animeManga }: SearchSuggestionsProps) => {
         }}
       >
         <Box
+          component="div"
           display={"flex"}
           alignItems={"center"}
           sx={{
@@ -29,6 +31,7 @@ const SearchSuggestions = ({ animeManga }: SearchSuggestionsProps) => {
           }}
           width={"auto"}
           height={"auto"}
+          onClick={onClick}
         >
           <CardMedia
             component="img"
@@ -60,10 +63,13 @@ const SearchSuggestions = ({ animeManga }: SearchSuggestionsProps) => {
                 : animeManga.attributes.titles.en_jp}
             </Typography>
             <Typography alignContent={"space-between"} fontSize={12}>
-              {" "}
-              • {animeManga.attributes.status} •{" "}
-              {animeManga.attributes.averageRating} • Anime
-              <Stack spacing={1}>
+              • {animeManga.attributes.status} • Anime
+            </Typography>
+            <Typography alignContent={"space-between"} fontSize={12}>
+              <Stack direction="row" spacing={1} alignItems="center">
+                <Typography fontSize={12}>
+                  {animeManga.attributes.averageRating}
+                </Typography>
                 <Rating
                   name="half-rating-read"
                   value={ratingValue}
@@ -77,7 +83,7 @@ const SearchSuggestions = ({ animeManga }: SearchSuggestionsProps) => {
           </Box>
         </Box>
       </Link>
-    </div>
+    </>
   );
 };
 

@@ -126,23 +126,29 @@ const NavBar = () => {
         anchorEl={anchor}
         open={open}
         onClose={handleMenuClose}
-        sx={{ display: { xs: "flex", md: "none" } }}
+        sx={{
+          display: { xs: "flex", md: "none" },
+        }}
       >
         <Box
           sx={{
-            display: { xs: "flex", sm: "none" }, //
-            width: "100%",
+            height: "auto",
+            width: { sm: "100px", sx: "400px" },
+            justifyContent: { sm: "center" },
           }}
         >
-          <MenuItem>
+          <MenuItem
+            sx={{
+              display: { xs: "flex", sm: "none" },
+            }}
+          >
             <SearchBar />
           </MenuItem>
+          <MenuItem onClick={handleMenuClose}>Noticias</MenuItem>
+          <MenuItem onClick={handleMenuClose}>Reseñas</MenuItem>
+          <MenuItem onClick={handleMenuClose}>Artículos</MenuItem>
+          <MenuItem onClick={handleMenuClose}>Más</MenuItem>
         </Box>
-
-        <MenuItem onClick={handleMenuClose}>Noticias</MenuItem>
-        <MenuItem onClick={handleMenuClose}>Reseñas</MenuItem>
-        <MenuItem onClick={handleMenuClose}>Artículos</MenuItem>
-        <MenuItem onClick={handleMenuClose}>Más</MenuItem>
       </Menu>
     </Box>
   );
