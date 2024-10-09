@@ -19,6 +19,7 @@ const SearchSuggestions = ({ animeManga, onClick }: SearchSuggestionsProps) => {
           textDecoration: "none",
           color: "inherit",
         }}
+        onClick={onClick}
       >
         <Box
           component="div"
@@ -31,7 +32,6 @@ const SearchSuggestions = ({ animeManga, onClick }: SearchSuggestionsProps) => {
           }}
           width={"auto"}
           height={"auto"}
-          onClick={onClick}
         >
           <CardMedia
             component="img"

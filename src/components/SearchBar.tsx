@@ -22,7 +22,13 @@ const SearchBar = () => {
   const searchRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    getFilteredAnimeData();
+    if (filterTerm !== "") {
+      getFilteredAnimeData();
+    }
+
+    if (filterTerm === "") {
+      dispatch(setSearchAnime([]));
+    }
   }, [filterTerm]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +36,8 @@ const SearchBar = () => {
     setSuggestion(true);
   };
 
-  const handleSearchClick = () => {
+  const handleSearchClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     dispatch(setCurrentPage(1));
   };
 
@@ -60,86 +67,84 @@ const SearchBar = () => {
   }, []);
 
   return (
-    <>
+    <Box
+      ref={searchRef}
+      position={"relative"}
+      sx={{
+        width: {
+          lg: "450px",
+          md: "370px",
+          sm: "360px",
+        },
+      }}
+    >
       <Box
-        ref={searchRef}
-        position={"relative"}
+        display={"flex"}
+        alignItems={"center"}
+        maxWidth={"800px"}
+        justifyContent={"center"}
+      >
+        <TextField
+          onChange={handleSearchChange}
+          value={filterTerm}
+          variant="outlined"
+          placeholder="Anime, Manga, comics ..."
+          fullWidth
+          sx={{
+            borderRadius: "4px",
+            "& .MuiOutlinedInput-root": {
+              borderRadius: "4px",
+            },
+            "& input": {
+              padding: "10px",
+            },
+          }}
+        />
+        <Link href={filterTerm ? `/search?q=${filterTerm}` : "#"}>
+          <IconButton
+            disabled={!filterTerm}
+            color="primary"
+            onClick={handleSearchClick}
+            sx={{
+              borderRadius: "4px",
+              padding: "10px",
+            }}
+          >
+            <SearchIcon />
+          </IconButton>
+        </Link>
+      </Box>
+
+      <Box
         sx={{
           width: {
             lg: "450px",
             md: "370px",
             sm: "360px",
+            xs: "258.4px",
+          },
+          maxHeight: "521px",
+          overflowY: "auto",
+          backgroundColor: "#e6e6e6",
+          borderRadius: "6px ",
+          "&::-webkit-scrollbar": {
+            display: "none",
           },
         }}
+        display="flex"
+        flexDirection="column"
+        position={"absolute"}
       >
-        <Box
-          display={"flex"}
-          alignItems={"center"}
-          maxWidth={"800px"}
-          justifyContent={"center"}
-        >
-          <TextField
-            onChange={handleSearchChange}
-            value={filterTerm}
-            variant="outlined"
-            placeholder="Anime, Manga, comics ..."
-            fullWidth
-            sx={{
-              borderRadius: "4px",
-              "& .MuiOutlinedInput-root": {
-                borderRadius: "4px",
-              },
-              "& input": {
-                padding: "10px",
-              },
-            }}
-          />
-          <Link href={filterTerm ? `/search?q=${filterTerm}` : "#"}>
-            <IconButton
-              disabled={!filterTerm}
-              color="primary"
-              onClick={handleSearchClick}
-              sx={{
-                borderRadius: "4px",
-                padding: "10px",
-              }}
-            >
-              <SearchIcon />
-            </IconButton>
-          </Link>
-        </Box>
-
-        <Box
-          sx={{
-            width: {
-              lg: "450px",
-              md: "370px",
-              sm: "360px",
-              xs: "258.4px",
-            },
-            maxHeight: "521px",
-            overflowY: "auto",
-            backgroundColor: "#e6e6e6",
-            borderRadius: "6px ",
-            "&::-webkit-scrollbar": {
-              display: "none",
-            },
-          }}
-          display="flex"
-          flexDirection="column"
-          position={"absolute"}
-        >
-          {filterTerm &&
-            searchAnime.map((animeManga) => (
-              <SearchSuggestions
-                onClick={() => dispatch(setFilterTerm(""))}
-                key={animeManga.id}
-                animeManga={animeManga}
-              />
-            ))}
-        </Box>
+        {filterTerm &&
+          searchAnime.map((animeManga) => (
+            <SearchSuggestions
+              onClick={() => dispatch(setFilterTerm(""))}
+              key={animeManga.id}
+              animeManga={animeManga}
+            />
+          ))}
       </Box>
-    </>
+    </Box>
   );
 };
 
