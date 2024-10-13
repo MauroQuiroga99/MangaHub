@@ -35,7 +35,12 @@ const PostPage = () => {
   }
 
   async function getAnimeDataSuggested() {
-    const respuesta = await api.get("/anime?page[limit]=6&page[offset]=0");
+    const respuesta = await api.get(
+      `/anime?page[limit]=6&page[offset]=0&filter[text]=${
+        selectedAnime?.attributes.titles.en ||
+        selectedAnime?.attributes.titles.en_jp
+      }`
+    );
     dispatch(setContent(respuesta.data.data));
     console.log(respuesta);
   }

@@ -51,12 +51,7 @@ const SearchBar = () => {
   }
 
   const handleClickOutside = (event: MouseEvent) => {
-    if (
-      searchRef.current &&
-      !searchRef.current.contains(event.target as Node)
-    ) {
-      dispatch(setFilterTerm(""));
-    }
+    searchRef.current && !searchRef.current.contains(event.target as Node);
   };
 
   useEffect(() => {
@@ -108,6 +103,7 @@ const SearchBar = () => {
             sx={{
               borderRadius: "4px",
               padding: "10px",
+              zIndex: 6,
             }}
           >
             <SearchIcon />

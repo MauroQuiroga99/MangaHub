@@ -137,13 +137,14 @@ const NavBar = () => {
             justifyContent: { sm: "center" },
           }}
         >
-          <MenuItem
+          <Box
             sx={{
+              margin: "8px",
               display: { xs: "flex", sm: "none" },
             }}
           >
             <SearchBar />
-          </MenuItem>
+          </Box>
           <MenuItem onClick={handleMenuClose}>Noticias</MenuItem>
           <MenuItem onClick={handleMenuClose}>Reseñas</MenuItem>
           <MenuItem onClick={handleMenuClose}>Artículos</MenuItem>

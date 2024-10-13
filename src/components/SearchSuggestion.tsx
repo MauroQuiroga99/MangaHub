@@ -23,12 +23,12 @@ const SearchSuggestions = ({ animeManga, onClick }: SearchSuggestionsProps) => {
       >
         <Box
           component="div"
-          display={"flex"}
           alignItems={"center"}
           sx={{
             borderRadius: "6px ",
             padding: "4px",
             cursor: "pointer",
+            display: { lg: "flex", md: "flex", sm: "flex", xs: "none" },
           }}
           width={"auto"}
           height={"auto"}
