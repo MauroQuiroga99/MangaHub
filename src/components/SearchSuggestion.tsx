@@ -10,6 +10,7 @@ type SearchSuggestionsProps = {
 
 const SearchSuggestions = ({ animeManga, onClick }: SearchSuggestionsProps) => {
   const ratingValue = Number(animeManga?.attributes.averageRating) / 20;
+
   return (
     <>
       <Link
@@ -18,6 +19,7 @@ const SearchSuggestions = ({ animeManga, onClick }: SearchSuggestionsProps) => {
           cursor: "pointer",
           textDecoration: "none",
           color: "inherit",
+          margin: "2px",
         }}
         onClick={onClick}
       >
@@ -25,10 +27,16 @@ const SearchSuggestions = ({ animeManga, onClick }: SearchSuggestionsProps) => {
           component="div"
           alignItems={"center"}
           sx={{
-            borderRadius: "6px ",
+            backgroundColor: "rgb(247, 247, 247)",
+            borderRadius: "6px",
             padding: "4px",
             cursor: "pointer",
             display: { lg: "flex", md: "flex", sm: "flex", xs: "none" },
+            transition: "box-shadow 0.3s ease, background-color 0.3s ease",
+            ":hover": {
+              backgroundColor: "#e6e6e6",
+              boxShadow: "rgba(0, 0, 0, 0.4) 5px 5px 20px",
+            },
           }}
           width={"auto"}
           height={"auto"}
@@ -39,9 +47,13 @@ const SearchSuggestions = ({ animeManga, onClick }: SearchSuggestionsProps) => {
             alt="Title"
             sx={{
               backgroundColor: "white",
-              borderRadius: "6px ",
+              borderRadius: "6px",
               width: "50px",
               height: "auto",
+              transition: "transform 0.3s ease",
+              ":hover": {
+                transform: "scale(1.05)",
+              },
             }}
           />
           <Box marginX={1} alignContent={"flex-start"} display={"wrap"}>

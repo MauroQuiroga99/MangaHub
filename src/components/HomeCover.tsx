@@ -23,10 +23,17 @@ const HomeCover = () => {
           position: "absolute",
           top: 0,
           left: 0,
+          zIndex: 1,
         },
       }}
     >
-      <Box maxWidth={"1200px"} margin={"auto"} textAlign={"center"}>
+      <Box
+        color={"white"}
+        maxWidth={"1200px"}
+        margin={"auto"}
+        textAlign={"center"}
+        marginTop={"80px"}
+      >
         <Typography
           variant="h1"
           component="h1"
@@ -37,21 +44,23 @@ const HomeCover = () => {
           alignItems={"center"}
           justifyContent={"center"}
           marginTop={"40px"}
-          sx={{ overflowY: "auto" }}
+          sx={{ overflowY: "auto", zIndex: 2 }}
+          position="relative"
         >
           ¡El mundo del manga en tus manos!
         </Typography>
         <Typography
+          position="relative"
           variant="body1"
           component="p"
           sx={{
             fontSize: "1rem",
-            color: "#666",
             lineHeight: "1.6",
             margin: "0 auto",
             maxWidth: "800px",
             overflowY: "auto",
             height: "80px",
+            zIndex: 2,
           }}
         >
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores modi

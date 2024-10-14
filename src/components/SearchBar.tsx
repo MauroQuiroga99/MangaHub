@@ -109,7 +109,6 @@ const SearchBar = () => {
             sx={{
               borderRadius: "4px",
               padding: "10px",
-              zIndex: 6,
             }}
           >
             <SearchIcon />
