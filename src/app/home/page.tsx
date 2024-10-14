@@ -16,10 +16,21 @@ const HomePage = () => {
   useEffect(() => {
     getAnimeData();
   }, []);
+  1.732;
+
+  const totalResul = 20805;
+
+  const totalRandom = Math.floor((totalResul - 12) / 12);
+
+  const stepRandom = Math.floor(Math.random() * (totalRandom + 1));
+
+  const randomOffset = stepRandom * 12;
 
   async function getAnimeData() {
     dispatch(setLoading(true));
-    const response = await api.get("/anime?page[limit]=12&page[offset]=0");
+    const response = await api.get(
+      `/anime?page[limit]=12&page[offset]=${randomOffset}`
+    );
     dispatch(setContent(response.data.data));
     dispatch(setLoading(false));
   }
