@@ -51,7 +51,13 @@ const SearchBar = () => {
   }
 
   const handleClickOutside = (event: MouseEvent) => {
-    searchRef.current && !searchRef.current.contains(event.target as Node);
+    if (
+      searchRef.current &&
+      !searchRef.current.contains(event.target as Node)
+    ) {
+      setSuggestion(false);
+      dispatch(setFilterTerm(""));
+    }
   };
 
   useEffect(() => {
