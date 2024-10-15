@@ -1,7 +1,7 @@
 "use client";
 import { Box, IconButton, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFilterTerm, getSearchAnime } from "app/store/selector/selectors";
 import {
@@ -15,7 +15,6 @@ import api from "app/utils/api";
 import { AnimeManga } from "app/types";
 
 const SearchBar = () => {
-  const [isSuggestion, setSuggestion] = useState(false);
   const dispatch = useDispatch();
   const filterTerm = useSelector(getFilterTerm);
   const searchAnime = useSelector(getSearchAnime) as AnimeManga[];
@@ -33,7 +32,6 @@ const SearchBar = () => {
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setFilterTerm(e.target.value));
-    setSuggestion(true);
   };
 
   const handleSearchClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -55,7 +53,6 @@ const SearchBar = () => {
       searchRef.current &&
       !searchRef.current.contains(event.target as Node)
     ) {
-      setSuggestion(false);
       dispatch(setFilterTerm(""));
     }
   };
