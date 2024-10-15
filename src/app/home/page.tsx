@@ -7,7 +7,7 @@ import api from "app/utils/api";
 import { AnimeManga } from "app/types";
 import { setContent, setLoading } from "app/store/slices/animeMangaSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { getContent, getLoading } from "app/store/selector/selectors";
+import { getContent } from "app/store/selector/selectors";
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -16,7 +16,6 @@ const HomePage = () => {
   useEffect(() => {
     getAnimeData();
   }, []);
-  1.732;
 
   const totalResul = 20805;
 

@@ -13,7 +13,6 @@ import { AnimeManga } from "app/types";
 import {
   setContent,
   setTotalPages,
-  setCurrentPage,
   setLoading,
 } from "app/store/slices/animeMangaSlice";
 import CardHome from "app/components/CardHome";
